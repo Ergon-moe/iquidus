@@ -8,6 +8,10 @@ body {
 	padding: 0.2rem 0.4rem;
 }
 
+.navbar-brand {
+	padding: 0rem 0.4rem;
+}
+
 .footer p {
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
@@ -207,6 +211,6 @@ tr {
 
 
 .decimal {
-	font-size: 0.7em;
+	font-size: 1em;
 }
 

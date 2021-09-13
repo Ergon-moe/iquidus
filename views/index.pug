@@ -59,9 +59,9 @@ block content
           var blockhash = data[1]; //variables for better readability
           var txhash = data[2]; //variables for better readability
           var outputs = data[3]; //variables for better readability
-          var amount = (data[4] / 100000000).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true}); //variables for better readability
+          var amount = (data[4] / 100000000).toLocaleString('en',{'minimumFractionDigits':8,'maximumFractionDigits':8,'useGrouping':true}); //variables for better readability
           var amountParts = amount.split('.');
-          var amount = amountParts[0] + '.<span class="decimal">' + amountParts[1] + '</span>';
+          var amount = amountParts[0] + '.<span class="decimal">' + amountParts[1].substr(0, 3)+ ' ' + amountParts[1].substr(3, 3)+ ' ' + amountParts[1].substr(6, 2)+ '</span>';
           var timestamp = data[5]; //variables for better readability
           $("td:eq(0)", row).html('<a href="/block/' + blockhash + '">' + blockindex + '</a>');
           $("td:eq(1)", row).html('<a href="/tx/' + txhash + '">' + txhash + '</a>').addClass("d-none d-md-none d-lg-table-cell text-center");

@@ -34,7 +34,7 @@ block market_view
               th #{settings.locale.mkt_amount} (#{marketdata.coin})
               th.hidden-xs #{settings.locale.mkt_total} (#{marketdata.exchange})
           tbody
-            each sell in marketdata.data.sells
+            each sell in marketdata.data.sells.reverse()
               tr
                 td
                   =sell.price

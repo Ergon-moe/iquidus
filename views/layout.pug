@@ -9,6 +9,7 @@ html
     link(rel='stylesheet', href='//cdn.datatables.net/1.11.1/css/dataTables.bootstrap4.min.css')
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
     script(src='//stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js')
     script(src='/vendor/jqplot/jquery.jqplot.min.js')
@@ -44,8 +45,8 @@ html
             $("#difficulty").text(diffString);
             $("#difficultyHybrid").text(json.data[0].difficultyHybrid);
             $("#hashrate").text(hashrateString);
-            $("#lastPrice").text(parseFloat(json.data[0].lastPrice).toFixed(8) + ' #{settings.markets.exchange}'.toUpperCase());
-            $("#marketCap").text((parseFloat(json.data[0].lastPrice).toFixed(8) * parseFloat(json.data[0].supply).toFixed(3)).toLocaleString('en') + ' #{settings.markets.exchange}'.toUpperCase());
+            $("#lastPrice").text(parseFloat(json.data[0].lastPrice).toFixed(2) + ' #{settings.markets.exchange}'.toUpperCase());
+            $("#marketCap").text((parseFloat(json.data[0].lastPrice).toFixed(2) * parseFloat(json.data[0].supply).toFixed(2)).toLocaleString('en') + ' #{settings.markets.exchange}'.toUpperCase());
             $("#lblConnections").text(json.data[0].connections + ' connections');
             $("#lblBlockcount").text(json.data[0].blockcount + ' blocks');
             $("#lblX1").text(' ');
@@ -100,7 +101,7 @@ html
       - return time
     -  };
     - var navbarClasses = ['nav','navbar','navbar-expand-lg','fixed-top'];
-    - var footerClasses = ['nav','navbar','navbar-default','fixed-bottom','d-none','d-md-flex','d-flex','footer'];
+    - var footerClasses = ['nav','navbar','navbar-default','fixed-bottom','d-none','d-md-flex','d-flex','footer', 'flex-nowrap'];
     if settings.display.navbar_dark == true
       - navbarClasses.push('bg-dark');
       - navbarClasses.push('navbar-dark');
@@ -165,7 +166,7 @@ html
     .col-md-12
       .row.text-center.d-flex.justify-content-center
         .col-md-2
-          .card.card-default.d-none.d-md-block.d-block
+          .card.card-default.d-none.d-md-block.d-block.shadow-sm
             .card-header
               if settings.nethash_units == 'K'
                 strong #{settings.locale.network} (KH/s)
@@ -189,7 +190,7 @@ html
                 else
                   label#hashrate -
         .col-md-2
-          .card.card-default.d-none.d-md-block.d-block
+          .card.card-default.d-none.d-md-block.d-block.shadow-sm
             .card-header
               strong #{settings.locale.difficulty}
             .card-body
@@ -205,7 +206,7 @@ html
         .col-md-2.col-sm-12
             img(src=settings.logo, style='margin-top:-15px;height:128px;')
         .col-md-2
-          .card.card-default.d-none.d-md-block.d-block
+          .card.card-default.d-none.d-md-block.d-block.shadow-sm
             .card-header
               strong #{settings.locale.ex_supply} (#{settings.symbol})
             .card-body
@@ -219,11 +220,10 @@ html
                   label#supply -
                 if settings.index.show_market_cap == true && settings.index.show_market_cap_over_price != true  
                   <br>  
-                  label ( 
+                  i.fa.fa-coins
                   label#marketCap - 
-                  label )
         .col-md-2
-          .card.card-default.d-none.d-md-block.d-block
+          .card.card-default.d-none.d-md-block.d-block.shadow-sm
             if settings.index.show_market_cap != true || settings.index.show_market_cap_over_price != true
               .card-header
                 strong #{settings.markets.exchange} Price
@@ -236,11 +236,12 @@ html
                     label#lblX1
                   else
                     label#lastPrice -
-          if settings.index.show_market_cap == true && settings.index.show_market_cap_over_price == true
-            .card-header
-              strong Market Cap
-            .card-body
-              label#marketCap -
+            if settings.index.show_market_cap == true && settings.index.show_market_cap_over_price == true
+              .card-header
+                strong Market Cap
+              .card-body
+                span.header-icons.fa.fa-ball-pile
+                label#marketCap -
 
       .row.text-center(style='margin-top:10px;margin-bottom:20px;')
         form.form-inline.col-12.d-flex.justify-content-center(method='post', action='/search')
@@ -270,9 +271,9 @@ html
                   span.glyphicon.fa.fa-youtube
       .col-md-4.navbar-nav
         ul.nav.justify-content-center
-          li.text-center(style='margin-left:80px;margin-right:80px;')
+          li.text-center(style='margin-left:12px;margin-right:12px;')
             p(style='')
-              a.nav-link.poweredby(href='https://github.com/iquidus/explorer', target='_blank') Powered by Iquidus Explorer v#{settings.iquidus_version}
+              a.nav-link.poweredby(href='https://github.com/iquidus/explorer', target='_blank') Iquidus Explorer v#{settings.iquidus_version}
       .col-md-4.navbar-nav
         ui.nav.justify-content-end
           label#lblBlockcount.badge.badge-pill.nav-link

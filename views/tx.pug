@@ -20,36 +20,36 @@ block content
               th
           tbody
             - var confirms = (blockcount - tx.blockindex);
-            if confirms >= confirmations             
+            if confirms >= confirmations
               tr.table-success
                   td #{confirms}
                   td.hidden-xs 
                     a(href='/block/'+tx.blockhash) #{tx.blockhash}
                   td #{time}
-                  td.view_tx  
+                  td.view_tx
                     a(href='/block/'+tx.blockhash)
-                      span.fa.fa-eye 
+                      span.fa.fa-eye
             else
               if confirms < (confirmations / 2)
                 tr.table-danger
                   td #{confirms}
-                  td.hidden-xs  
+                  td.hidden-xs
                     a(href='/block/'+tx.blockhash) #{tx.blockhash}
                   td #{time}
-                  td.view_tx  
+                  td.view_tx
                     a(href='/block/'+tx.blockhash)
-                      span.fa.fa-eye 
+                      span.fa.fa-eye
               else
                 tr.table-warning
                   td #{confirms}
-                  td.hidden-xs  
+                  td.hidden-xs
                     a(href='/block/'+tx.blockhash) #{tx.blockhash}
                   td #{time}
-                  td.view_tx  
+                  td.view_tx
                     a(href='/block/'+tx.blockhash)
                       span.fa.fa-eye
     if tx.vout.length < 1
-      .alert.alert-info(role='alert', style='text-align:center;')   
+      .alert.alert-info(role='alert', style='text-align:center;')
         strong #{settings.locale.tx_nonstandard}
     else
       .row
@@ -58,7 +58,7 @@ block content
             .card-header
               strong #{settings.locale.tx_contributors}
               span.fa.fa-arrow-right.pull-right.d-xs-none
-            table.table.table-bordered.table-striped.summary-table 
+            table.table.table-bordered.table-striped.summary-table
               thead
                 tr
                   th #{settings.locale.tx_address}
@@ -68,15 +68,15 @@ block content
               tbody
                 if tx.vin.length > 0
                   each r in tx.vin
-                    if r.addresses == 'coinbase' 
+                    if r.addresses == 'coinbase'
                       tr.table-info(style='text-align:center')
                         td #{settings.locale.new_coins}
                     else
                       - var ramount = (r.amount / 100000000).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true})
                       - var ramountParts = ramount.split('.')
                       tr
-                        td 
-                          a.loading(href='/address/' + r.addresses) 
+                        td
+                          a.loading(href='/address/' + r.addresses)
                             =r.addresses
                         td.table-danger.d-xs-none #{ramountParts[0]}.
                           span.decimal #{ramountParts[1]}
@@ -90,35 +90,36 @@ block content
           .card.card-default
             .card-header
               strong #{settings.locale.tx_recipients}
-            table.table.table-bordered.table-striped.summary-table 
-              thead
-                tr
-                  th #{settings.locale.tx_address}
-                  th.d-none.d-md-block #{settings.locale.mkt_amount} (#{settings.symbol})
-              tbody
-                each r in tx.vout
-                  if tx.vout.length > 0 
-                    - var ramount = (r.amount / 100000000).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true})
-                    - var ramountParts = ramount.split('.')
-                    tr.d-sm-block.d-md-none.d-none
-                      td 
-                        a.loading(href='/address/'+r.addresses) 
-                          =r.addresses 
-                      td.success.d-none.d-sm-block  #{ramountParts[0]}.
-                        span.decimal #{ramountParts[1]}
-                    tr.d-sm-block.d-md-none.d-none
-                      td.success #{ramountParts[0]}.
-                            span.decimal #{ramountParts[1]} #{settings.symbol}
-                  else
-                    - var ramount = (r.amount / 100000000).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true})
-                    - var ramountParts = ramount.split('.')
+            div.table-responsive
+              table.table.table-bordered.table-striped.summary-table
+                thead
                   tr
-                    td 
-                      a.loading(href='/address/' + r.addresses) 
-                        =r.addresses 
-                    td.table-success.d-none.d-md-block  #{ramountParts[0]}.
-                        span.decimal #{ramountParts[1]}
-                  tr.d-sm-block.d-md-none.d-none
-                    td.table-success #{ramountParts[0]}.
-                            span.decimal #{ramountParts[1]} #{settings.symbol}
+                    th #{settings.locale.tx_address}
+                    th.d-none.d-md-block #{settings.locale.mkt_amount} (#{settings.symbol})
+                tbody
+                  each r in tx.vout
+                    if tx.vout.length > 0
+                      - var ramount = (r.amount / 100000000).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true})
+                      - var ramountParts = ramount.split('.')
+                      tr.d-sm-block.d-md-none.d-none
+                        td
+                          a.loading(href='/address/'+r.addresses)
+                            =r.addresses
+                        td.success.d-none.d-sm-block  #{ramountParts[0]}.
+                          span.decimal #{ramountParts[1]}
+                      tr.d-sm-block.d-md-none.d-none
+                        td.success #{ramountParts[0]}.
+                              span.decimal #{ramountParts[1]} #{settings.symbol}
+                    else
+                      - var ramount = (r.amount / 100000000).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true})
+                      - var ramountParts = ramount.split('.')
+                    tr
+                      td
+                        a.loading(href='/address/' + r.addresses)
+                          =r.addresses
+                      td.table-success.d-none.d-md-block  #{ramountParts[0]}.
+                          span.decimal #{ramountParts[1]}
+                    tr.d-sm-block.d-md-none.d-none
+                      td.table-success #{ramountParts[0]}.
+                              span.decimal #{ramountParts[1]} #{settings.symbol}
     .footer-padding

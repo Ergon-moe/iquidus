@@ -5,47 +5,35 @@ block content
   - var block_difficulty = parseFloat(block.difficulty).toFixed(4)
   .col-xs-12.col-md-12
     .card.card-default
-      .card-header(style='padding-left:25px;padding-right:25px;')       
-        .row           
+      .card-header(style='padding-left:25px;padding-right:25px;')
+        .row
           if block.previousblockhash != null
             a(href='/block/'+ block.previousblockhash)
-              span.fa.fa-chevron-left.iquidus.block-last(data-toggle='tooltip', data-placement='top', title=settings.locale.block_previous)  
+              span.fa.fa-chevron-left.iquidus.block-last(data-toggle='tooltip', data-placement='top', title=settings.locale.block_previous)
             strong.d-none.d-sm-block #{settings.symbol} block: #{block.hash}
           else
             strong.d-none.d-sm-block(style='margin-left:10px;') #{settings.symbol} #{settings.locale.ex_block}: #{block.hash}
-          if block.nextblockhash != null 
+          if block.nextblockhash != null
             a(href='/block/'+ block.nextblockhash)
-              span.fa.fa-chevron-right.iquidus.pull-right.block-next(data-toggle='tooltip', data-placement='top', title=settings.locale.block_next)      
+              span.fa.fa-chevron-right.iquidus.pull-right.block-next(data-toggle='tooltip', data-placement='top', title=settings.locale.block_next)
           a(href=`/api/getblock?hash=` + block.hash)
             span.fa.fa-info-circle.iquidus.pull-right
-      table.table.table-bordered.summary-table 
-        thead
-          tr
-            th #{settings.locale.height}
-            th #{settings.locale.difficulty}
-            th #{settings.locale.confirmations}
-            if settings.heavy == true
-              th Vote
-            th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.size} (kB)
-            th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.bits}
-            th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.nonce}
-            th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.timestamp}
-        tbody
-          if block.confirmations >= confirmations                
-            tr.table-success
-              - var block_size = block.size/1024
-              td=block.height
-              td=Number(block.difficulty).toFixed(4)
-              td=block.confirmations
+      div.table-responsive
+        table.table.table-bordered.summary-table
+          thead
+            tr
+              th #{settings.locale.height}
+              th #{settings.locale.difficulty}
+              th #{settings.locale.confirmations}
               if settings.heavy == true
-                td=block.vote
-              td.d-none.d-sm-table-cell.d-table-cell=block_size.toFixed(2)
-              td.d-none.d-sm-table-cell.d-table-cell=block.bits
-              td.d-none.d-sm-table-cell.d-table-cell=block.nonce
-              td.d-none.d-sm-table-cell.d-table-cell=time
-          else
-            if block.confirmations < (confirmations / 2)
-              tr.table-danger
+                th Vote
+              th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.size} (kB)
+              th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.bits}
+              th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.nonce}
+              th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.timestamp}
+          tbody
+            if block.confirmations >= confirmations
+              tr.table-success
                 - var block_size = block.size/1024
                 td=block.height
                 td=Number(block.difficulty).toFixed(4)
@@ -57,17 +45,30 @@ block content
                 td.d-none.d-sm-table-cell.d-table-cell=block.nonce
                 td.d-none.d-sm-table-cell.d-table-cell=time
             else
-              tr.table-warning
-                - var block_size = block.size/1024
-                td=block.height
-                td=Number(block.difficulty).toFixed(4)
-                td=block.confirmations
-                if settings.heavy == true
-                  td=block.vote
-                td.d-none.d-sm-cell.d-table-cell=block_size.toFixed(2)
-                td.d-none.d-sm-table-cell.d-table-cell=block.bits
-                td.d-none.d-sm-table-cell.d-table-cell=block.nonce
-                td.d-none.d-sm-table-cell.d-table-cell=time
+              if block.confirmations < (confirmations / 2)
+                tr.table-danger
+                  - var block_size = block.size/1024
+                  td=block.height
+                  td=Number(block.difficulty).toFixed(4)
+                  td=block.confirmations
+                  if settings.heavy == true
+                    td=block.vote
+                  td.d-none.d-sm-table-cell.d-table-cell=block_size.toFixed(2)
+                  td.d-none.d-sm-table-cell.d-table-cell=block.bits
+                  td.d-none.d-sm-table-cell.d-table-cell=block.nonce
+                  td.d-none.d-sm-table-cell.d-table-cell=time
+              else
+                tr.table-warning
+                  - var block_size = block.size/1024
+                  td=block.height
+                  td=Number(block.difficulty).toFixed(4)
+                  td=block.confirmations
+                  if settings.heavy == true
+                    td=block.vote
+                  td.d-none.d-sm-cell.d-table-cell=block_size.toFixed(2)
+                  td.d-none.d-sm-table-cell.d-table-cell=block.bits
+                  td.d-none.d-sm-table-cell.d-table-cell=block.nonce
+                  td.d-none.d-sm-table-cell.d-table-cell=time
 
     if block.hash == settings.genesis_block
       .alert.alert-info(role='alert', style='text-align:center;')   

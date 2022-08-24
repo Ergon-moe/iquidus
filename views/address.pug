@@ -35,26 +35,26 @@ block content
         thead
           tr
             if settings.show_sent_received == true
-              th.d-none.d-sm-block #{settings.locale.total_sent} (#{settings.symbol})
+              th.d-none.d-sm-table-cell #{settings.locale.total_sent} (#{settings.symbol})
             if address.a_id !== 'coinbase'
               if settings.show_sent_received == true
-                th #{settings.locale.total_received} (#{settings.symbol})
+                th.d-none.d-sm-table-cell #{settings.locale.total_received} (#{settings.symbol})
               th #{settings.locale.rl_balance} (#{settings.symbol})
               th #{settings.locale.a_qr}
         tbody
           tr
             if settings.show_sent_received == true
-              td.addr-summary.hidden-xs #{sentParts[0]}.
+              td.addr-summary.d-none.d-sm-table-cell #{sentParts[0]}.
                 span.decimal #{sentParts[1]} 
             if address.a_id !== 'coinbase'
               if settings.show_sent_received == true
-                td.addr-summary.hidden-xs #{receivedParts[0]}.
+                td.addr-summary.d-none.d-sm-table-cell  #{receivedParts[0]}.
                   span.decimal #{receivedParts[1]} 
               td.addr-summary #{balanceParts[0]}.
                 span.decimal #{balanceParts[1]} 
               td.addr-summary
                 img.qrcode(src='/qr/'+address.a_id) 
-    .card.card-default.d-none.d-sm-block
+    .card.card-default
       .card-header
         strong #{settings.locale.ex_latest_transactions}
       table.table-bordered.table-striped

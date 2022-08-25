@@ -19,8 +19,13 @@
         tr
           td(style='text-align:center;') 
             =count
-          td 
-            a(href='/address/'+item.a_id) #{item.a_id}
+          td.d-none.d-lg-block
+            - var addr = item.a_id
+            a(href='/address/'+addr) #{addr}
+            include ./rl_labels.pug
+          td.d-lg-none
+            - var addr = item.a_id
+            a(href='/address/'+addr) #{addr.substring(0,10)}...#{addr.substring(addr.length-3,addr.length)}
             include ./rl_labels.pug
           td.hidden-xs #{itemFixedParts[0]}.
             span.decimal #{itemFixedParts[1]}

@@ -23,52 +23,52 @@ block content
           thead
             tr
               th #{settings.locale.height}
-              th #{settings.locale.difficulty}
+              th #{settings.locale.timestamp}
+              th.d-none.d-sm-table-cell #{settings.locale.difficulty}
               th #{settings.locale.confirmations}
               if settings.heavy == true
                 th Vote
-              th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.size} (kB)
-              th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.bits}
-              th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.nonce}
-              th.d-none.d-sm-table-cell.d-table-cell #{settings.locale.timestamp}
+              th.d-none.d-sm-table-cell #{settings.locale.size} (kB)
+              th.d-none.d-sm-table-cell #{settings.locale.bits}
+              th.d-none.d-sm-table-cell #{settings.locale.nonce}
           tbody
             if block.confirmations >= confirmations
               tr.table-success
                 - var block_size = block.size/1024
                 td=block.height
-                td=Number(block.difficulty).toFixed(4)
+                td=time
+                td.d-none.d-sm-table-cell=Number(block.difficulty).toFixed(4)
                 td=block.confirmations
                 if settings.heavy == true
                   td=block.vote
-                td.d-none.d-sm-table-cell.d-table-cell=block_size.toFixed(2)
-                td.d-none.d-sm-table-cell.d-table-cell=block.bits
-                td.d-none.d-sm-table-cell.d-table-cell=block.nonce
-                td.d-none.d-sm-table-cell.d-table-cell=time
+                td.d-none.d-sm-table-cell=block_size.toFixed(2)
+                td.d-none.d-sm-table-cell=block.bits
+                td.d-none.d-sm-table-cell=block.nonce
             else
               if block.confirmations < (confirmations / 2)
                 tr.table-danger
                   - var block_size = block.size/1024
                   td=block.height
-                  td=Number(block.difficulty).toFixed(4)
+                  td=time
+                  td.d-none.d-sm-table-cell=Number(block.difficulty).toFixed(4)
                   td=block.confirmations
                   if settings.heavy == true
                     td=block.vote
-                  td.d-none.d-sm-table-cell.d-table-cell=block_size.toFixed(2)
-                  td.d-none.d-sm-table-cell.d-table-cell=block.bits
-                  td.d-none.d-sm-table-cell.d-table-cell=block.nonce
-                  td.d-none.d-sm-table-cell.d-table-cell=time
+                  td.d-none.d-sm-table-cell=block_size.toFixed(2)
+                  td.d-none.d-sm-table-cell=block.bits
+                  td.d-none.d-sm-table-cell=block.nonce
               else
                 tr.table-warning
                   - var block_size = block.size/1024
                   td=block.height
-                  td=Number(block.difficulty).toFixed(4)
+                  td=time
+                  td.d-none.d-sm-table-cell=Number(block.difficulty).toFixed(4)
                   td=block.confirmations
                   if settings.heavy == true
                     td=block.vote
-                  td.d-none.d-sm-cell.d-table-cell=block_size.toFixed(2)
-                  td.d-none.d-sm-table-cell.d-table-cell=block.bits
-                  td.d-none.d-sm-table-cell.d-table-cell=block.nonce
-                  td.d-none.d-sm-table-cell.d-table-cell=time
+                  td.d-none.d-sm-cell=block_size.toFixed(2)
+                  td.d-none.d-sm-table-cell=block.bits
+                  td.d-none.d-sm-table-cell=block.nonce
 
     if block.hash == settings.genesis_block
       .alert.alert-info(role='alert', style='text-align:center;')   

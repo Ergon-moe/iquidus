@@ -1,8 +1,9 @@
 extends menu
 
 block market_view
-
-  .row
+  script(type="text/javascript" src="https://unpkg.com/@coinpaprika/widget-currency/dist/widget.min.js")
+  .div(class="coinpaprika-currency-widget" data-primary-currency="usd" data-currency="xrg-ergon" data-modules='["market_details", "chart"]' data-update-active="false")
+  .row   
     .col-md-6.col-xs-12
       .panel.panel-default
         .panel-heading

@@ -38,6 +38,9 @@ mongoose.connect(dbString, function(err) {
           if (peer) {
             if (isNaN(peer['port']) || peer['port'].length < 2 || peer['country'].length < 1 || peer['country_code'].length < 1) {
               db.drop_peers(function() {
+		console.log(peer['port']);
+		console.log(peer['country']);
+		console.log(peer['country_code']);
                 console.log('Saved peers missing ports or country, dropping peers. Re-reun this script afterwards.');
                 exit();
               });
@@ -45,14 +48,14 @@ mongoose.connect(dbString, function(err) {
             // peer already exists
             loop.next();
           } else {
-            request({uri: 'https://freegeoip.app/json/' + address, json: true}, function (error, response, geo) {
+            request({uri: settings.geo_provider + address, json: true}, function (error, response, geo) {
               db.create_peer({
                 address: address,
                 port: port,
                 protocol: body[i].version,
                 version: body[i].subver.replace('/', '').replace('/', ''),
                 country: geo.country_name,
-                country_code: geo.country_code
+                country_code: geo.country_code2
               }, function(){
                 loop.next();
               });

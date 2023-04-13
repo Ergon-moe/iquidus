@@ -51,6 +51,12 @@ block content
           include ./includes/rl_received.pug
     if show_dist == true
       .col-md-4.col-xs-12
+        - var gini = 0
+        - var gini_total = 0
+        each item1 in balance
+          - gini_total += item1.balance
+          each item2 in balance
+            - gini += Math.abs(item1.balance - item2.balance)
         #summary-panel.card.card-default(style='margin-top:47px;')
           .card-header
             h5.card-title #{settings.locale.rl_wealth}
@@ -94,6 +100,10 @@ block content
                   span #{settings.locale.total}
                 td 
                 td.text-center #{(100 - parseFloat(distd.percent)).toFixed(2)}
+              tr
+                th Gini Coefficient
+                td
+                td.text-center #{parseFloat(gini/(200*gini_total)).toFixed(4)}
         center
           div#pieChart(style="width:300px;height:305px;margin:0px;")
   .row.footer-margin

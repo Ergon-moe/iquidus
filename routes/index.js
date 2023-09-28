@@ -115,9 +115,26 @@ function route_get_address(res, hash, count) {
       var txs = [];
       res.render('address', { active: 'address', address: address, txs: txs});
     } else {
-      route_get_index(res, hash + ' not found');
+      var valid = validate_address(hash); 
+      if (valid) {
+        res.render('address', {active: 'address', address: {sent:0, received:0, balance:0, a_id:hash, name: ''}, txs: []});
+      } else {
+        route_get_index(res, hash + ' not found');
+      }
     }
   });
+}
+
+function validate_address(address) {
+  const addr_array = address.split(':');
+  const CHARSET = /^[qpzry9x8gf2tvdw0s3jn54khce6mua7l]+$/;
+  if (addr_array[0] == 'ergon' && addr_array.length == 2 && CHARSET.test(addr_array[1])) {
+    return true;
+  } else if (addr_array.length==1 && addr_array.length == 1 && CHARSET.test(addr_array[0])){
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function route_get_claim_form(res, hash){
